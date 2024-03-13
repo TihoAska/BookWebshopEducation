@@ -1,0 +1,107 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using BookWebshopEducation.DataAccess.Data;
+using BookWebshopEducation.Models.Models;
+
+namespace BookWebshopEducation.Controllers
+{
+    public class ProductController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Products.Add(product);
+                _context.SaveChanges();
+                TempData["success"] = "Product created successfully";
+                return RedirectToAction("Index", "Product");
+            }
+
+            return View();
+        }
+
+        public IActionResult Edit(int? productId)
+        {
+            if (productId is null or 0)
+            {
+                return NotFound();
+            }
+
+            Product? product = _context.Products.FirstOrDefault(product => product.Id == productId);
+            //Category? category1 = _context.Categories.Find(categoryId);
+            //Category? category2 = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Products.Update(product);
+                _context.SaveChanges();
+                TempData["success"] = "Product edited successfully";
+                return RedirectToAction("Index", "Product");
+            }
+
+            return View();
+        }
+
+        public IActionResult Delete(int? productId)
+        {
+            if (productId is null or 0)
+            {
+                return NotFound();
+            }
+
+            Product? product = _context.Products.FirstOrDefault(c => c.Id == productId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? productsId)
+        {
+            Product? product = _context.Products.FirstOrDefault(c => c.Id == productsId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            TempData["success"] = "Product deleted successfully";
+
+            return RedirectToAction("Index", "Product");
+        }
+    }
+}
