@@ -1,21 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BookWebshopEducation.DataAccess.Data;
 using BookWebshopEducation.Models.Models;
+using BookWebshopEducation.DataAccess.Repository.IRepository;
+using BookWebshopEducation.DataAccess.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookWebshopEducation.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    //private readonly ICategoryRepository _categoryRepository;
+    //private readonly ApplicationDbContext _context;
+    private IUnitOfWork _unitOfWork;
 
-    public CategoryController(ApplicationDbContext context)
+    //public CategoryController(ICategoryRepository categoryRepository, ApplicationDbContext contex)
+    //{
+    //    _categoryRepository = categoryRepository;
+    //    _context = contex;
+    //}
+
+    public CategoryController(IUnitOfWork unitOfWork)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
     {
-        List<Category> categoryList = _context.Categories.ToList();
+        List<Category> categoryList = _unitOfWork.Category.GetAll().ToList();
         return View(categoryList);
     }
 
@@ -30,13 +41,13 @@ public class CategoryController : Controller
         //Custom validation
         if (category.Name == category.DisplayOrder.ToString())
         {
-            ModelState.AddModelError("Name", "The DisplayOrder cannot exactly match the Name.");
+            ModelState.AddModelError("Name", "Name can't be the same as DisplayOrder.");
         }
 
         if (ModelState.IsValid) 
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            _unitOfWork.Category.Add(category);
+            _unitOfWork.SaveChanges();
             TempData["success"] = "Category created successfully";
             return RedirectToAction("Index", "Category");
         }
@@ -51,9 +62,7 @@ public class CategoryController : Controller
             return NotFound();
         }
 
-        Category? category = _context.Categories.FirstOrDefault(c => c.Id == categoryId);
-        //Category? category1 = _context.Categories.Find(categoryId);
-        //Category? category2 = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+        Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
         if (category == null)
         {
@@ -68,8 +77,8 @@ public class CategoryController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Categories.Update(category);
-            _context.SaveChanges();
+            _unitOfWork.Category.Update(category);
+            _unitOfWork.SaveChanges();
             TempData["success"] = "Category edited successfully";
             return RedirectToAction("Index", "Category");
         }
@@ -84,7 +93,7 @@ public class CategoryController : Controller
             return NotFound();
         }
 
-        Category? category = _context.Categories.FirstOrDefault(c => c.Id == categoryId);
+        Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
         if (category == null)
         {
@@ -97,15 +106,15 @@ public class CategoryController : Controller
     [HttpPost, ActionName("Delete")]
     public IActionResult DeletePOST(int? categoryId)
     {
-        Category? category = _context.Categories.FirstOrDefault(c => c.Id == categoryId);
+        Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
         if (category == null)
         {
             return NotFound();
         }
-        
-        _context.Categories.Remove(category);
-        _context.SaveChanges();
+
+        _unitOfWork.Category.Delete(category);
+        _unitOfWork.SaveChanges();
         TempData["success"] = "Category deleted successfully";
 
         return RedirectToAction("Index", "Category");

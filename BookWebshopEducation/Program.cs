@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 
 using BookWebshopEducation.DataAccess.Data;
+using BookWebshopEducation.DataAccess.Repository.IRepository;
+using BookWebshopEducation.DataAccess.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
             sqlOptions.EnableRetryOnFailure();
         }));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

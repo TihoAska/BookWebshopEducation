@@ -52,7 +52,7 @@ public class ApplicationDbContext : DbContext
                 Author = "Ja",
                 Description = "Description",
                 YearOfPublish = new DateTime(),
-                Category = new Category() { Id = 1, Name = "Action", DisplayOrder = 1 },
+                //Category = new Category() { Id = 1, Name = "Action", DisplayOrder = 1 },
                 Price = 20.20m,
                 Picture = "NewPic",
                 NumberOfPages = 500,

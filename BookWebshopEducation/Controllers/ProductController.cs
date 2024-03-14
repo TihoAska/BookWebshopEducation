@@ -15,7 +15,8 @@ namespace BookWebshopEducation.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Product> products = _context.Products.ToList();
+            return View(products);
         }
 
         public IActionResult Create()
@@ -44,9 +45,7 @@ namespace BookWebshopEducation.Controllers
                 return NotFound();
             }
 
-            Product? product = _context.Products.FirstOrDefault(product => product.Id == productId);
-            //Category? category1 = _context.Categories.Find(categoryId);
-            //Category? category2 = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            Product? product = _context.Products.FirstOrDefault(p => p.Id == productId);
 
             if (product == null)
             {
@@ -88,9 +87,9 @@ namespace BookWebshopEducation.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? productsId)
+        public IActionResult DeletePOST(int? productId)
         {
-            Product? product = _context.Products.FirstOrDefault(c => c.Id == productsId);
+            Product? product = _context.Products.FirstOrDefault(c => c.Id == productId);
 
             if (product == null)
             {
