@@ -1,21 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BookWebshopEducation.DataAccess.Data;
+﻿using BookWebshopEducation.DataAccess.Data;
+using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.Models.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookWebshopEducation.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            List<Product> products = _context.Products.ToList();
+            List<Product> products = _unitOfWork.Product.GetAll().ToList();
             return View(products);
         }
 
@@ -29,8 +31,8 @@ namespace BookWebshopEducation.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Add(product);
-                _context.SaveChanges();
+                _unitOfWork.Product.Add(product);
+                _unitOfWork.SaveChanges();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index", "Product");
             }
@@ -45,7 +47,7 @@ namespace BookWebshopEducation.Controllers
                 return NotFound();
             }
 
-            Product? product = _context.Products.FirstOrDefault(p => p.Id == productId);
+            Product? product = _unitOfWork.Product.GetAll().FirstOrDefault(p => p.Id == productId);
 
             if (product == null)
             {
@@ -60,8 +62,8 @@ namespace BookWebshopEducation.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Update(product);
-                _context.SaveChanges();
+                _unitOfWork.Product.Update(product);
+                _unitOfWork.SaveChanges();
                 TempData["success"] = "Product edited successfully";
                 return RedirectToAction("Index", "Product");
             }
@@ -76,7 +78,7 @@ namespace BookWebshopEducation.Controllers
                 return NotFound();
             }
 
-            Product? product = _context.Products.FirstOrDefault(c => c.Id == productId);
+            Product? product = _unitOfWork.Product.GetAll().FirstOrDefault(c => c.Id == productId);
 
             if (product == null)
             {
@@ -89,15 +91,15 @@ namespace BookWebshopEducation.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? productId)
         {
-            Product? product = _context.Products.FirstOrDefault(c => c.Id == productId);
+            Product? product = _unitOfWork.Product.GetAll().FirstOrDefault(c => c.Id == productId);
 
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
-            _context.SaveChanges();
+            _unitOfWork.Product.Delete(product);
+            _unitOfWork.SaveChanges();
             TempData["success"] = "Product deleted successfully";
 
             return RedirectToAction("Index", "Product");

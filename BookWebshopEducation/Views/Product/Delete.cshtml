@@ -15,8 +15,17 @@
             <input asp-for="Id" hidden />
             <div class="border p-3">
                 <p style="color:  #fd0054">
-                    <span style="font-weight: bold">Name:</span>
-                    @Model.Name
+                    <span style="font-weight: bold">Title:</span>
+                    @Model.Title
+                </p>
+                <hr style="border-color: #fd0054" />
+                <p style="color:  #fd0054">
+                    <span style="font-weight: bold">ISBN:</span>
+                    @Model.ISBN
+                </p>
+                <p style="color:  #fd0054">
+                    <span style="font-weight: bold">Author:</span>
+                    @Model.Author
                 </p>
                 <hr style="border-color: #fd0054" />
                 <p style="color:  #fd0054">

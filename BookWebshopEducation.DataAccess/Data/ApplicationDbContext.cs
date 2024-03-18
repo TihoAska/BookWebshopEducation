@@ -42,20 +42,6 @@ public class ApplicationDbContext : DbContext
                 Id = 4,
                 Name = "Romance",
                 DisplayOrder = 4
-            });
-
-        modelBuilder.Entity<Product>().HasData(
-            new
-            {
-                Id = 1,
-                Name = "Book",
-                Author = "Ja",
-                Description = "Description",
-                YearOfPublish = new DateTime(),
-                //Category = new Category() { Id = 1, Name = "Action", DisplayOrder = 1 },
-                Price = 20.20m,
-                Picture = "NewPic",
-                NumberOfPages = 500,
-            });
+            });            
     }
 }

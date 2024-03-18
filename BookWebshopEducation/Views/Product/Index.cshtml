@@ -22,7 +22,9 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">PRODUCT</th>
+                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">TITLE</th>
+                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">ISBN</th>
+                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">AUTHOR</th>
                         <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">PRICE</th>
                     </tr>
                 </thead>
@@ -30,7 +32,9 @@
                     @foreach (var product in Model)
                     {
                         <tr>
-                            <td style="background-color:  #303841; color: #fd0054; font-weight: bold">@product.Name</td>
+                            <td style="background-color:  #303841; color: #fd0054; font-weight: bold">@product.Title</td>
+                            <td style="background-color:  #303841; color: #fd0054; font-weight: bold; text-align: center">@product.ISBN</td>
+                            <td style="background-color:  #303841; color: #fd0054; font-weight: bold;">@product.Author</td>
                             <td style="background-color:  #303841; color: #fd0054; font-weight: bold; text-align: right">@product.Price</td>
                             <td style="background-color:  #303841; text-align: center">
                                 <div class="w-75 btn-group" role="group">
