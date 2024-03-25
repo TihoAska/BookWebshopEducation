@@ -5,7 +5,7 @@
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class DoublePriceForProduct : Migration
+    public partial class NewValidation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

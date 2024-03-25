@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BookWebshopEducation.Models.Models;
 
-namespace BookWebshopEducation.Controllers;
+namespace BookWebshopEducation.Areas.Customer.Controllers;
 
 public class HomeController : Controller
 {

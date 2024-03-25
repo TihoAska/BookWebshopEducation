@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using BookWebshopEducation.DataAccess.Data;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.DataAccess.Repository;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 // Add DbContext as a service with connection string from appsettings.json
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlServerOptionsAction: sqlOptions =>
-        {
-            sqlOptions.EnableRetryOnFailure();
-        }));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => 
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+//        sqlServerOptionsAction: sqlOptions =>
+//        {
+//            sqlOptions.EnableRetryOnFailure();
+//        }));
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -48,7 +52,7 @@ app.UseAuthorization();
 // Default route - if nothing is defined go to Home/Index/..
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 // Runs the project
 app.Run();

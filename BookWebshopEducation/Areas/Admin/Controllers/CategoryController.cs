@@ -5,7 +5,7 @@ using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookWebshopEducation.Controllers;
+namespace BookWebshopEducation.Areas.Admin.Controllers;
 
 public class CategoryController : Controller
 {
@@ -44,7 +44,7 @@ public class CategoryController : Controller
             ModelState.AddModelError("Name", "Name can't be the same as DisplayOrder.");
         }
 
-        if (ModelState.IsValid) 
+        if (ModelState.IsValid)
         {
             _unitOfWork.Category.Add(category);
             _unitOfWork.SaveChanges();

@@ -2,17 +2,17 @@
 using BookWebshopEducation.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240318183542_DoublePriceForProduct")]
-    partial class DoublePriceForProduct
+    [Migration("20240324202246_NewValidation")]
+    partial class NewValidation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,25 +20,25 @@ namespace BookWebshopEducation.DataAccess.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("BookWebshopEducation.Models.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("Id");
 
@@ -75,41 +75,61 @@ namespace BookWebshopEducation.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<double>("ListPrice")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Price")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Price100")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<double>("Price50")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("BookWebshopEducation.Models.Models.Product", b =>
+                {
+                    b.HasOne("BookWebshopEducation.Models.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

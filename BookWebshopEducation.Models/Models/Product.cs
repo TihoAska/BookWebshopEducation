@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookWebshopEducation.Models.Models
 {
@@ -28,5 +25,11 @@ namespace BookWebshopEducation.Models.Models
         public double Price50 { get; set; }
         [DisplayName("Price for 100+")]
         public double Price100 { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        [ValidateNever]
+        public Category Category { get; set; }
+        [ValidateNever]
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }
