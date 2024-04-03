@@ -2,6 +2,7 @@
 using BookWebshopEducation.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240403160920_CompanyTable")]
+    partial class CompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,18 +105,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Djk",
-                            Country = "Croatia",
-                            Name = "MyCompany",
-                            PhoneNumber = "0991234567",
-                            PostalCode = 31400,
-                            StreetAddress = "Long Street"
-                        });
                 });
 
             modelBuilder.Entity("BookWebshopEducation.Models.Models.Product", b =>

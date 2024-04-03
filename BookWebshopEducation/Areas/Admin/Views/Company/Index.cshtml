@@ -1,0 +1,41 @@
+﻿@model List<Company>;
+
+<div class="card shadow border-0 mt-4" style="border-radius: 15px">
+    <div class="card-header m-lg-0 py-3" style="border-radius: 15px">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="py-2" style="font-weight: bold">
+                    COMPANIES
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-12 text-end">
+                <a asp-controller="Company" asp-action="Upsert" class="btn btn-light">
+                    <i class="bi bi-plus-circle"></i> Create New Company
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <table id="tblData" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">NAME</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">STREET ADDRESS</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">CITY</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">COUNTRY</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">POSTAL CODE</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">PHONE NUMBER</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/company.js"></script>
+}

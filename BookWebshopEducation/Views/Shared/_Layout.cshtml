@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BookWebshopEducation</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BookWebshopEducation.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -13,9 +14,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookWebshopEducation</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">BookWebshopEducation</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,18 +24,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Index">Customer</a>
+                            <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Index">Customer</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Content Management
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Category" asp-action="Index" style="color: #fd0054">Category</a>
+                                    <a class="nav-link text-lightab-content text-light" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index" style="color: #fd0054">Product</a>
+                                    <a class="nav-link text-lightab-content text-light" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-lightab-content text-light" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                 </li>
                             </ul>
                         </li>

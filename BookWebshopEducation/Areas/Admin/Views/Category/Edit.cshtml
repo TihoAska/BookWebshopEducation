@@ -1,7 +1,7 @@
 ﻿@model Category
 
-<div class="card shadow border-0 mt-4" style="background-color: #303841; border-radius: 15px">
-    <div class="card-header m-lg-0 py-3" style="background-color: #fd0054; border-radius: 15px">
+<div class="card shadow border-0 mt-4">
+    <div class="card-header m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="py-2" style="font-weight: bold">
@@ -10,18 +10,18 @@
             </div>
         </div>
     </div>
-    <div class="card-body p-4" style="background-color: #303841;">
+    <div class="card-body p-4">
         <form method="post">
             <input asp-for="Id" hidden />
             <div class="border p-3">
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Name" class="form-control border-0 shadow" />
-                    <label asp-for="Name" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                    <label asp-for="Name" class="ms-2" style="font-weight: bold"></label>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
                     <input asp-for="DisplayOrder" class="form-control border-0 shadow" />
-                    <label asp-for="DisplayOrder" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                    <label asp-for="DisplayOrder" class="ms-2" style="font-weight: bold"></label>
                     <span asp-validation-for="DisplayOrder" class="text-danger"></span>
                 </div>
                 <div class="row mt-2">
@@ -29,7 +29,7 @@
                         <button type="submit" class="btn btn-light form-control">Update</button>
                     </div>
                     <div class="col-6 col-md-3">
-                        <a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary border form-control" style="color: #fbf9fa">
+                        <a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary border form-control">
                             Back To List
                         </a>
                     </div>

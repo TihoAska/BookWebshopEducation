@@ -1,16 +1,16 @@
 ﻿@model ProductViewModel
 
-<div class="card shadow border-0 mt-4" style="background-color: #303841; border-radius: 15px">
-    <div class="card-header m-lg-0 py-3" style="background-color: #fd0054; border-radius: 15px">
+<div class="card shadow border-0 mt-4">
+    <div class="card-header m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="py-2" style="color: #303841; font-weight: bold">
+                <h2 class="py-2" style="font-weight: bold">
                     @(Model.Product.Id != 0 ? "Edit" : "Create") Product
                 </h2>
             </div>
         </div>
     </div>
-    <div class="card-body p-4" style="background-color: #303841;">
+    <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
             <input asp-for="Product.Id" hidden/>
             <input asp-for="Product.ImageUrl" hidden />
@@ -20,42 +20,42 @@
                 <div class="border p-3">
                     <div class="form-floating py-2 col-12">
                         <input asp-for="Product.Title" class="form-control border-0" />
-                        <label asp-for="Product.Title" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Title" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Title" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input asp-for="Product.Description" class="form-control border-0" />
-                        <label asp-for="Product.Description" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Description" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Description" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input asp-for="Product.ISBN" class="form-control border-0" />
-                        <label asp-for="Product.ISBN" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.ISBN" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.ISBN" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input asp-for="Product.Author" class="form-control border-0" />
-                        <label asp-for="Product.Author" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Author" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Author" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input type="number" step=".01" asp-for="Product.ListPrice" class="form-control border-0" />
-                        <label asp-for="Product.ListPrice" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.ListPrice" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input type="number" step=".01" asp-for="Product.Price" class="form-control border-0" />
-                        <label asp-for="Product.Price" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Price" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Price" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input type="number" step=".01" asp-for="Product.Price50" class="form-control border-0" />
-                        <label asp-for="Product.Price50" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Price50" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Price50" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 col-12">
                         <input type="number" step=".01" asp-for="Product.Price100" class="form-control border-0" />
-                        <label asp-for="Product.Price100" class="ms-2" style="color: #303841; font-weight: bold"></label>
+                        <label asp-for="Product.Price100" class="ms-2" style="font-weight: bold"></label>
                         <span asp-validation-for="Product.Price100" class="text-danger"></span>
                     </div>
                     <div class="form-floating py-2 row">
@@ -85,7 +85,7 @@
                             }
                         </div>
                         <div class="col-6 col-md-3">
-                            <a asp-controller="Product" asp-action="Index" class="btn border form-control" style="color: #fbf9fa">
+                            <a asp-controller="Product" asp-action="Index" class="btn border form-control">
                                 Back To List
                             </a>
                         </div>

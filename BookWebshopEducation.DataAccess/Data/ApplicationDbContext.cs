@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext
     // Always use plural here
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Company> Companys { get; set; }
 
     // Seed data here (there are other ways of doing this)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +43,18 @@ public class ApplicationDbContext : DbContext
                 Id = 4,
                 Name = "Romance",
                 DisplayOrder = 4
-            });            
+            });
+
+        modelBuilder.Entity<Company>().HasData(
+            new
+            {
+                Id = 1,
+                Name = "MyCompany",
+                StreetAddress = "Long Street",
+                City = "Djk",
+                Country = "Croatia",
+                PostalCode = 31400,
+                PhoneNumber = "0991234567"
+            });
     }
 }

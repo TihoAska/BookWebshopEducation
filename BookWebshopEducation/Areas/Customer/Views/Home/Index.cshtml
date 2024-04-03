@@ -9,12 +9,12 @@
                         <img src="@product.ImageUrl" class="card-img-top rounded" width="100%"/>
                         <div class="card-body pb-0">
                             <div class="pl-1">
-                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                                <p class="card-title h5 text-uppercase text-center">@product.Title</p>
                                 <p class="card-title h5 text-warning text-center">@product.Author</p>
                             </div>
 
                             <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                <p class="text-center mb-0">
                                     List Price:
                                     <span class="text-decoration-line-through">
                                         @product.ListPrice.ToString("c");
@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                <p class="text-center mb-0">
                                     As low as:
                                     <span class="text-decoration-line-through">
                                         @product.Price100.ToString("c");

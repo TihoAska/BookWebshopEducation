@@ -1,16 +1,16 @@
 ﻿@model List<Product>;
 
-<div class="card shadow border-0 mt-4" style="background-color:  #303841; border-radius: 15px">
-    <div class="card-header m-lg-0 py-3" style="background-color: #fd0054; border-radius: 15px">
+<div class="card shadow border-0 mt-4" style="border-radius: 15px">
+    <div class="card-header m-lg-0 py-3" style="border-radius: 15px">
         <div class="row">
-            <div class="col-12 text-center" style="background-color: #fd0054">
-                <h2 class="py-2" style="color: #303841; font-weight: bold">
+            <div class="col-12 text-center">
+                <h2 class="py-2" style="font-weight: bold">
                     PRODUCTS
                 </h2>
             </div>
         </div>
     </div>
-    <div class="card-body p-4" style="background-color:  #303841">
+    <div class="card-body p-4">
         <div class="row pb-3">
             <div class="col-12 text-end">
                 <a asp-controller="Product" asp-action="Upsert" class="btn btn-light">
@@ -22,13 +22,12 @@
             <table id="tblData" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">TITLE</th>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">ISBN</th>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">AUTHOR</th>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">PRICE</th>
-                        <th style="background-color:  #303841; color: #fd0054; font-weight: bold; font-size: 20px; text-align: center">CATEGORY</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">TITLE</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">ISBN</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">AUTHOR</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">PRICE</th>
+                        <th style="font-weight: bold; font-size: 20px; text-align: center">CATEGORY</th>
                         <th></th>
-
                     </tr>
                 </thead>
                 <tbody>
