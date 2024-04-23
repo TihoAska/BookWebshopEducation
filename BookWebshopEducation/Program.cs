@@ -4,6 +4,9 @@ using BookWebshopEducation.DataAccess.Data;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.DataAccess.Repository;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using BookWebshopEducation.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +24,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
+builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
@@ -46,8 +60,12 @@ app.UseStaticFiles();
 // https://localhost:55555/Product/Details/3
 app.UseRouting();
 
-// This is something we will work on later
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapRazorPages();
+
+// This is something we will work on later
+
 
 // Default route - if nothing is defined go to Home/Index/..
 app.MapControllerRoute(
