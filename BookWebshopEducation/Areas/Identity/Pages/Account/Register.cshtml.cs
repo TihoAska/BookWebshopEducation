@@ -104,9 +104,7 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
             public string Role { get; set; }
-
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
         }
@@ -115,7 +113,8 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl = null)
         {
             //hack to create user roles if they don't already exist
-            if (!_roleManager.RoleExistsAsync(Role.Role_Admin).GetAwaiter().GetResult()) {
+            if(!_roleManager.RoleExistsAsync(Role.Role_Admin).GetAwaiter().GetResult())
+            {
                 _roleManager.CreateAsync(new IdentityRole(Role.Role_Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Role.Role_Employee)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Role.Role_Customer)).GetAwaiter().GetResult();
@@ -157,7 +156,7 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, Role.Role_Customer);
+                        await _userManager.AddToRoleAsync(user, Role.Role_Customer); 
                     }
 
                     var userId = await _userManager.GetUserIdAsync(user);
