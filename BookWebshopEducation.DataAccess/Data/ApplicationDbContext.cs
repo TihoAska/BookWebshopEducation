@@ -17,7 +17,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     // Always use plural here
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<Company> Companys { get; set; }
+    public DbSet<Company> Companies { get; set; }
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
     public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
