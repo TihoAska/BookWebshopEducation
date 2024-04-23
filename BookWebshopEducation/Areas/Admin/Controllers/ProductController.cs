@@ -3,11 +3,15 @@ using BookWebshopEducation.DataAccess.Repository;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.Models.Models;
 using BookWebshopEducation.Models.ViewModels;
+using BookWebshopEducation.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookWebshopEducation.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = Role.Role_Admin)]
     public class ProductController : Controller
     {
         private IUnitOfWork _unitOfWork;

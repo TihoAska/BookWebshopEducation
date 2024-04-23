@@ -4,9 +4,12 @@ using BookWebshopEducation.Models.Models;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using BookWebshopEducation.Utility;
 
 namespace BookWebshopEducation.Areas.Admin.Controllers;
-
+[Area("Admin")]
+[Authorize(Roles = Role.Role_Admin)]
 public class CategoryController : Controller
 {
     //private readonly ICategoryRepository _categoryRepository;
