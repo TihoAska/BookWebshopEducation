@@ -4,7 +4,7 @@ using BookWebshopEducation.Models.Models;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
 
 namespace BookWebshopEducation.Areas.Customer.Controllers;
-
+[Area("Customer")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
