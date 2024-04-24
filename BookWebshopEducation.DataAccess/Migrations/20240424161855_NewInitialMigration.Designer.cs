@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423111710_NewInitalMigration")]
-    partial class NewInitalMigration
+    [Migration("20240424161855_NewInitialMigration")]
+    partial class NewInitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -410,6 +410,9 @@ namespace BookWebshopEducation.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("text");
@@ -429,6 +432,8 @@ namespace BookWebshopEducation.DataAccess.Migrations
                     b.Property<string>("StreetAddress")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -512,6 +517,15 @@ namespace BookWebshopEducation.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookWebshopEducation.Models.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("BookWebshopEducation.Models.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }

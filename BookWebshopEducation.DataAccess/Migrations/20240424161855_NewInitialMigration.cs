@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class NewInitalMigration : Migration
+    public partial class NewInitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,38 +26,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    StreetAddress = table.Column<string>(type: "text", nullable: true),
-                    City = table.Column<string>(type: "text", nullable: true),
-                    PostalCode = table.Column<string>(type: "text", nullable: true),
-                    Country = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: true),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,6 +79,72 @@ namespace BookWebshopEducation.DataAccess.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    ISBN = table.Column<string>(type: "text", nullable: false),
+                    Author = table.Column<string>(type: "text", nullable: false),
+                    ListPrice = table.Column<double>(type: "double precision", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    Price50 = table.Column<double>(type: "double precision", nullable: false),
+                    Price100 = table.Column<double>(type: "double precision", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    StreetAddress = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    PostalCode = table.Column<string>(type: "text", nullable: true),
+                    Country = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    CompanyId = table.Column<int>(type: "integer", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -199,34 +233,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    ISBN = table.Column<string>(type: "text", nullable: false),
-                    Author = table.Column<string>(type: "text", nullable: false),
-                    ListPrice = table.Column<double>(type: "double precision", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false),
-                    Price50 = table.Column<double>(type: "double precision", nullable: false),
-                    Price100 = table.Column<double>(type: "double precision", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShoppingCart",
                 columns: table => new
                 {
@@ -301,6 +307,11 @@ namespace BookWebshopEducation.DataAccess.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CompanyId",
+                table: "AspNetUsers",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -341,9 +352,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Companies");
-
-            migrationBuilder.DropTable(
                 name: "ShoppingCart");
 
             migrationBuilder.DropTable(
@@ -354,6 +362,9 @@ namespace BookWebshopEducation.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Categories");
