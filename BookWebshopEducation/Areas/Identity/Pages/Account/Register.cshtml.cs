@@ -10,6 +10,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BookWebshopEducation.DataAccess.Repository;
+using BookWebshopEducation.DataAccess.Repository.IRepository;
 using BookWebshopEducation.Models.Models;
 using BookWebshopEducation.Utility;
 using Microsoft.AspNetCore.Authentication;
@@ -21,7 +23,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SQLitePCL;
 
 namespace BookWebshopEducation.Areas.Identity.Pages.Account
 {
@@ -34,6 +38,7 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             RoleManager<IdentityRole> roleManager,
@@ -41,7 +46,8 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, 
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -50,6 +56,7 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -104,9 +111,26 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            [Display(Name = "Street Address")]
+            public string StreetAddress { get; set; }
+            [Required]
+            [Display(Name = "City")]
+            public string City { get; set; }
+            [Required]
+            [Display(Name = "Country")]
+            public string  Country { get; set; }
+            [Required]
+            [Display(Name = "Postal Code")]
+            public int PostalCode { get; set; }
+            [Required]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
             public string Role { get; set; }
+            public int? CompanyId { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
 
 
@@ -127,6 +151,11 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
                 {
                     Text = i,
                     Value = i
+                }),
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
                 })
             };
 
@@ -144,6 +173,18 @@ namespace BookWebshopEducation.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.StreetAddress = Input.StreetAddress;
+                user.City = Input.City;
+                user.Country = Input.Country;
+                user.PostalCode = Input.PostalCode.ToString();
+                user.PhoneNumber = Input.PhoneNumber.ToString();
+
+                if(Input.Role == "Company")
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
