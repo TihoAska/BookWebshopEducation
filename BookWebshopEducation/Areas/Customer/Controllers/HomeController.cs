@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BookWebshopEducation.Models.Models;
 using BookWebshopEducation.DataAccess.Repository.IRepository;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Security.Claims;
+using BookWebshopEducation.Models.ViewModels;
 
 namespace BookWebshopEducation.Areas.Customer.Controllers;
 [Area("Customer")]
@@ -40,6 +43,29 @@ public class HomeController : Controller
         return View(shoppingCart);
     }
 
-        return View(product);
+    [HttpPost]
+    public IActionResult Details(ShoppingCart shoppingCart)
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        shoppingCart.ApplicationUserId = userId;
+
+        ShoppingCart shoppingCartFromDb = _unitOfWork.ShoppingCart.Get(sp => sp.ApplicationUserId == userId && sp.ProductId == shoppingCart.ProductId);
+
+        if(shoppingCartFromDb != null)
+        {
+            shoppingCartFromDb.Count += shoppingCart.Count;
+            _unitOfWork.ShoppingCart.Update(shoppingCartFromDb);
+        }
+        else
+        {
+            _unitOfWork.ShoppingCart.Add(shoppingCart);
+        }
+
+        _unitOfWork.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
+    }
     }
 }
