@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookWebshopEducation.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240424161855_NewInitialMigration")]
+    [Migration("20240502120049_NewInitialMigration")]
     partial class NewInitialMigration
     {
         /// <inheritdoc />
@@ -44,32 +44,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DisplayOrder = 1,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DisplayOrder = 2,
-                            Name = "Thriller"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DisplayOrder = 3,
-                            Name = "SciFi"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DisplayOrder = 4,
-                            Name = "Romance"
-                        });
                 });
 
             modelBuilder.Entity("BookWebshopEducation.Models.Models.Company", b =>
@@ -106,18 +80,6 @@ namespace BookWebshopEducation.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Djk",
-                            Country = "Croatia",
-                            Name = "MyCompany",
-                            PhoneNumber = "0991234567",
-                            PostalCode = 31400,
-                            StreetAddress = "Long Street"
-                        });
                 });
 
             modelBuilder.Entity("BookWebshopEducation.Models.Models.Product", b =>
