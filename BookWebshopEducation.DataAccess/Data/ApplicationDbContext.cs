@@ -25,43 +25,5 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Category>().HasData(
-            new
-            {
-                Id = 1,
-                Name = "Action",
-                DisplayOrder = 1
-            },
-            new
-            {
-                Id = 2,
-                Name = "Thriller",
-                DisplayOrder = 2
-            },
-            new
-            {
-                Id = 3,
-                Name = "SciFi",
-                DisplayOrder = 3
-            },
-            new
-            {
-                Id = 4,
-                Name = "Romance",
-                DisplayOrder = 4
-            });
-
-        modelBuilder.Entity<Company>().HasData(
-            new
-            {
-                Id = 1,
-                Name = "MyCompany",
-                StreetAddress = "Long Street",
-                City = "Djk",
-                Country = "Croatia",
-                PostalCode = 31400,
-                PhoneNumber = "0991234567"
-            });
     }
 }
