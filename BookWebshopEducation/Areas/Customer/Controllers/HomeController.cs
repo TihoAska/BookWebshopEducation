@@ -30,7 +30,15 @@ public class HomeController : Controller
 
     public IActionResult Details(int productId)
     {
-        Product product = _unitOfWork.Product.Get(p => p.Id == productId);
+        ShoppingCart shoppingCart = new()
+        {
+            Product = _unitOfWork.Product.Get(p => p.Id == productId, includeProperties: "Category"),
+            Count = 1,
+            ProductId = productId,
+        };
+
+        return View(shoppingCart);
+    }
 
         return View(product);
     }
