@@ -12,6 +12,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IUnitOfWork _unitOfWork;
+    private static int totalCount = 0;
 
     public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
     {
@@ -67,5 +68,11 @@ public class HomeController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public IActionResult GetCartCount()
+    {
+        var totalCount = _unitOfWork.ShoppingCart.GetAll().Sum(item => item.Count);
+        return Ok(new { Count = totalCount });
     }
 }
