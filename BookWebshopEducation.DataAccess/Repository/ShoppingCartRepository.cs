@@ -18,7 +18,7 @@ namespace BookWebshopEducation.DataAccess.Repository
         }
         public void Update(ShoppingCart shoppingCart)
         {
-            throw new NotImplementedException();
+            _context.Update(shoppingCart);
         }
     }
 }
