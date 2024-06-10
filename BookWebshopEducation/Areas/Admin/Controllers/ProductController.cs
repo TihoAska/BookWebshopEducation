@@ -112,40 +112,6 @@ namespace BookWebshopEducation.Areas.Admin.Controllers
             return View(productViewModel);
         }
 
-        //public IActionResult Delete(int? productId)
-        //{
-        //    if (productId is null or 0)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    Product? product = _unitOfWork.Product.GetAll().FirstOrDefault(c => c.Id == productId);
-
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(product);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //public IActionResult DeletePOST(int? productId)
-        //{
-        //    Product? product = _unitOfWork.Product.GetAll().FirstOrDefault(c => c.Id == productId);
-
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _unitOfWork.Product.Delete(product);
-        //    _unitOfWork.SaveChanges();
-        //    TempData["success"] = "Product deleted successfully";
-
-        //    return RedirectToAction("Index", "Product");
-        //}
-
         #region API Calls
         [HttpGet]
         public IActionResult GetAll()
