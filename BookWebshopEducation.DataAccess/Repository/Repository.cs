@@ -51,7 +51,7 @@ namespace BookWebshopEducation.DataAccess.Repository
             return query.FirstOrDefault(filter);
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
 

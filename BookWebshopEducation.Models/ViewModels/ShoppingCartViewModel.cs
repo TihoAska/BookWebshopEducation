@@ -1,4 +1,5 @@
 ﻿using BookWebshopEducation.Models.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace BookWebshopEducation.Models.ViewModels
 {
     public class ShoppingCartViewModel
     {
+        [ValidateNever]
         public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
-        public double OrderTotal { get; set; } = 0;
+        public OrderHeader OrderHeader { get; set; }
     }
 }

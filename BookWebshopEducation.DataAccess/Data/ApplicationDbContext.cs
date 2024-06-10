@@ -20,6 +20,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Company> Companies { get; set; }
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
     public DbSet<ShoppingCart> ShoppingCart { get; set; }
+    public DbSet<OrderHeader> OrderHeaders { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
 
     // Seed data here (there are other ways of doing this)
     protected override void OnModelCreating(ModelBuilder modelBuilder)

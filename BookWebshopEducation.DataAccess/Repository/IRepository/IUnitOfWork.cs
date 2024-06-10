@@ -13,6 +13,8 @@ namespace BookWebshopEducation.DataAccess.Repository.IRepository
         ICompanyRepository Company { get; }
         IShoppingCartRepository ShoppingCart { get; }
         IApplicationUserRepository ApplicationUser { get; }
+        IOrderHeaderRepository OrderHeaders { get; }
+        IOrderDetailRepository OrderDetails { get; }
         void SaveChanges();
     }
 }

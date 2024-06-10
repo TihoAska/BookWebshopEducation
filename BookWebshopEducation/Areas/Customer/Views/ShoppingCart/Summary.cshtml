@@ -1,6 +1,7 @@
 ﻿@model ShoppingCartViewModel
 
 <form method="post">
+    <input asp-for="OrderHeader.Id" hidden/>
     <br />
     <div class="container">
         <div class="card shadow border-0">
@@ -31,7 +32,7 @@
                                     <label>Name</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.Name" />
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -39,7 +40,7 @@
                                     <label>Phone</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.PhoneNumber" />
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -47,7 +48,7 @@
                                     <label>Street Address</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.StreetAddress" />
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -55,7 +56,7 @@
                                     <label>City</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.City" />
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -63,7 +64,7 @@
                                     <label>State</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.State"/>
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -71,7 +72,7 @@
                                     <label>Postal Code</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input class="form-control" asp-for="@Model.OrderHeader.PostalCode" />
                                 </div>
                             </div>
                         </div>
@@ -107,7 +108,7 @@
                                 }
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <small class="text-info">Total (USD)</small>
-                                    <strong class="text-info">@Model.OrderTotal$$</strong>
+                                    <strong class="text-info">@Model.OrderHeader.OrderTotal$$</strong>
                                 </li>
                             </ul>
                         </div>
@@ -132,7 +133,7 @@
 </form>
 
 
-<script>
+@* <script>
     document.addEventListener('DOMContentLoaded', function () {
         fetch('/Customer/Home/GetCartCount')
             .then(response => response.json())
@@ -143,4 +144,4 @@
             })
             .catch(error => console.error('Error fetching cart count:', error));
     });
-</script>
+</script> *@
