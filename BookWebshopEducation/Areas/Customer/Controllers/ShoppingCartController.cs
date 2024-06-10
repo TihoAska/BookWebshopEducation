@@ -104,7 +104,12 @@ namespace BookWebshopEducation.Areas.Customer.Controllers
         {
             var shoppingCart = _unitOfWork.ShoppingCart.Get(sc => sc.ProductId == productId, includeProperties: "Product");
             shoppingCart.Count++;
-            ShoppingCartViewModel.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList();
+
+            ShoppingCartViewModel = new ShoppingCartViewModel()
+            {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList(),
+                OrderHeader = new OrderHeader()
+            };
 
             if (shoppingCart.Count <= 50)
             {
@@ -129,24 +134,31 @@ namespace BookWebshopEducation.Areas.Customer.Controllers
         {
             var shoppingCart = _unitOfWork.ShoppingCart.Get(sc => sc.ProductId == productId, includeProperties: "Product");
             shoppingCart.Count--;
-            ShoppingCartViewModel.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList();
+
+            ShoppingCartViewModel = new ShoppingCartViewModel()
+            {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList(),
+                OrderHeader = new OrderHeader()
+            };
 
             if (shoppingCart.Count < 1)
             {
                 _unitOfWork.ShoppingCart.Delete(shoppingCart);
             }
-
-            if (shoppingCart.Count <= 50)
+            else
             {
-                ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price;
-            }
-            else if (shoppingCart.Count > 50 && shoppingCart.Count <= 100)
-            {
-                ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price50;
-            }
-            else if (shoppingCart.Count > 100)
-            {
-                ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price100;
+                if (shoppingCart.Count <= 50)
+                {
+                    ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price;
+                }
+                else if (shoppingCart.Count > 50 && shoppingCart.Count <= 100)
+                {
+                    ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price50;
+                }
+                else if (shoppingCart.Count > 100)
+                {
+                    ShoppingCartViewModel.OrderHeader.OrderTotal = shoppingCart.Count * shoppingCart.Product.Price100;
+                }
             }
 
             _unitOfWork.SaveChanges();
@@ -159,7 +171,11 @@ namespace BookWebshopEducation.Areas.Customer.Controllers
         {
             var shoppingCartFromDb = _unitOfWork.ShoppingCart.Get(sc => sc.Id == shoppingCartId, includeProperties: "Product");
 
-            ShoppingCartViewModel.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList();
+            ShoppingCartViewModel = new ShoppingCartViewModel()
+            {
+                ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(includeProperties: "Product").ToList(),
+                OrderHeader = new OrderHeader()
+            };
 
             foreach (var shoppingCart in ShoppingCartViewModel.ShoppingCartList)
             {
