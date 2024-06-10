@@ -9,10 +9,10 @@ namespace BookWebshopEducation.Utility
     public class OrderStatus
     {
         public const string Pending = "Pending";
-        public const string Approved = "Pending";
-        public const string InProcess = "Pending";
-        public const string Shipped = "Pending";
-        public const string Cancelled = "Pending";
-        public const string Refund = "Pending";
+        public const string Approved = "Approved";
+        public const string InProcess = "InProcess";
+        public const string Shipped = "Shipped";
+        public const string Cancelled = "Cancelled";
+        public const string Refund = "Refund";
     }
 }
